@@ -6,10 +6,10 @@ using Microsoft.IdentityModel.Tokens;
 namespace Domain;
 
 public class TokenService {
-    private readonly string _issuer;
-    private readonly string _key;
+    private readonly string? _issuer;
+    private readonly string? _key;
 
-    public TokenService(string issuer, string key) {
+    public TokenService(string? issuer, string? key) {
         _issuer = issuer;
         _key = key;
     }
@@ -29,7 +29,7 @@ public class TokenService {
             issuer: _issuer,
             audience: _issuer,
             claims: claims,
-            expires: DateTime.Now.AddMinutes(30),
+            expires: DateTime.Now.AddMinutes(5),
             signingCredentials: creds
         );
 

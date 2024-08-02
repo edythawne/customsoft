@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Entity.App;
+using Infrastructure.Exception;
 using Infrastructure.Repository.Common;
 
 namespace Infrastructure.Repository;
@@ -10,8 +11,8 @@ public class AppRepository : BaseRepository {
 
         try {
             return await ApplyProcedure<BaseResponseEntity<UserPaginatedEntity>>("app.user_get_all_paginated");
-        } catch (Exception exception) {
-            throw new Exception(exception.Message);
+        } catch (System.Exception exception) {
+            throw new EntityException(exception.Message);
         } finally {
             CloseConnection();
         }
@@ -22,8 +23,8 @@ public class AppRepository : BaseRepository {
 
         try {
             return await ApplyProcedure<BaseResponseEntity<int>>("app.user_sync_detail");
-        } catch (Exception exception) {
-            throw new Exception(exception.Message);
+        } catch (System.Exception exception) {
+            throw new EntityException(exception.Message);
         } finally {
             CloseConnection();
         }

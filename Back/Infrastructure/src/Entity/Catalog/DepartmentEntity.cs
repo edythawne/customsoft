@@ -14,6 +14,6 @@ public class DepartmentEntity {
     public string Name { get; set; }
 
     [JsonProperty("area")]
-    public AreaEntity Area { get; set; }
+    public AreaEntity? Area { get; set; }
     
 }

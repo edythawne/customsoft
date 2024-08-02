@@ -3,6 +3,7 @@ using System.Text;
 using Domain;
 using Domain.Command.App;
 using Domain.Command.Auth;
+using Domain.Command.Catalog;
 using Infrastructure;
 using Infrastructure.Repository;
 using Microsoft.OpenApi.Models;
@@ -63,10 +64,12 @@ public static class ServiceExtensions {
      */
     public static void InitMediator(this IServiceCollection services) {
         services.AddMediatR(typeof(CreateUserCommand).GetTypeInfo().Assembly);
-        services.AddMediatR(typeof(GetUserPaginatedCommand).GetTypeInfo().Assembly);
-        services.AddMediatR(typeof(LoginCommand).GetTypeInfo().Assembly);
+        services.AddMediatR(typeof(GetUserPaginatedQuery).GetTypeInfo().Assembly);
+        services.AddMediatR(typeof(LoginQuery).GetTypeInfo().Assembly);
         services.AddMediatR(typeof(SyncUserDetailCommand).GetTypeInfo().Assembly);
-        services.AddMediatR(Assembly.GetExecutingAssembly());
+        services.AddMediatR(typeof(GetAllRoleQuery).GetTypeInfo().Assembly);
+        services.AddMediatR(typeof(GetAllDepartmentQuery).GetTypeInfo().Assembly);
+        //services.AddMediatR(Assembly.GetExecutingAssembly());
     }
 
     /**
@@ -76,6 +79,7 @@ public static class ServiceExtensions {
         service.AddSingleton(new UserRepository());
         service.AddSingleton(new AuthRepository());
         service.AddSingleton(new AppRepository());
+        service.AddSingleton(new CatalogRepository());
         
         service.AddSingleton(new TokenService(
             configuration["Jwt:Issuer"],
@@ -97,7 +101,7 @@ public static class ServiceExtensions {
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = configuration["Jwt:Issuer"],
                     ValidAudience = configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
                 };
             });
     }

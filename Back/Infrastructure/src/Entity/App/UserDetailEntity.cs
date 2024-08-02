@@ -7,7 +7,7 @@ public class UserDetailEntity {
     public long Id { get; set; }
 
     [JsonProperty("curp")]
-    public long Curp { get; set; }
+    public string Curp { get; set; }
 
     [JsonProperty("gender")]
     public string Gender { get; set; }

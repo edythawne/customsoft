@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "FLzrGmGpDOfIzB1uILcJur83bMYNEhGDy88XB+/lQGDMAhi1WwFhnSTvGgRWlDsMOFRxva5EbiiMV3SLjq72Zg==",
+  "dgSpecHash": "NDMhEp6/k+/tbwh4whxGA7c8bPYrlgBvSLrOa5AAU9p5wRHN0oRQsjqR+xS5HC4xAQ8vXHSsUASgX/19bdyfIw==",
   "success": true,
   "projectFilePath": "C:\\Users\\arteaprogramar\\Documents\\CustomSoft\\Back\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
@@ -29,6 +29,7 @@
     "C:\\Users\\arteaprogramar\\.nuget\\packages\\microsoft.identitymodel.protocols\\6.10.0\\microsoft.identitymodel.protocols.6.10.0.nupkg.sha512",
     "C:\\Users\\arteaprogramar\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.10.0\\microsoft.identitymodel.protocols.openidconnect.6.10.0.nupkg.sha512",
     "C:\\Users\\arteaprogramar\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.0.1\\microsoft.identitymodel.tokens.8.0.1.nupkg.sha512",
+    "C:\\Users\\arteaprogramar\\.nuget\\packages\\mimetypesmap\\1.0.8\\mimetypesmap.1.0.8.nupkg.sha512",
     "C:\\Users\\arteaprogramar\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\arteaprogramar\\.nuget\\packages\\npgsql\\8.0.3\\npgsql.8.0.3.nupkg.sha512",
     "C:\\Users\\arteaprogramar\\.nuget\\packages\\serilog\\4.0.0\\serilog.4.0.0.nupkg.sha512",

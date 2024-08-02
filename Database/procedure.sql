@@ -344,3 +344,138 @@ $$;
 
 -- Llamada de ejemplo a la función:
 SELECT app.user_sync_detail('{"user_id" : 1, "curp" : "1", "date_of_birth" : "1996-10-10", "place_of_birth" : "a", "birth_certificate" : "a", "gender" : "M", "created_by" : "1"}');
+
+
+
+DROP FUNCTION catalog.department_get_all;
+CREATE OR REPLACE FUNCTION catalog.department_get_all(
+) RETURNS JSONB LANGUAGE plpgsql AS
+$$
+DECLARE
+    __json_result JSON;
+BEGIN
+
+    SELECT json_agg(json) AS data FROM(
+        SELECT json_build_object(
+            'id', cd.id,
+            'area_id', cd.area_id,
+            'name', cd.name,
+            'created_at', cd.created_at
+        ) AS json
+        FROM catalog.department cd
+        GROUP BY cd.id
+        ORDER BY cd.name
+    ) json INTO __json_result;
+
+    -- Construir el json final
+    RETURN app.get_response('Ok', __json_result::jsonb);
+
+END;
+$$;
+
+SELECT catalog.department_get_all();
+
+
+DROP FUNCTION auth.roles_get_all;
+CREATE OR REPLACE FUNCTION auth.roles_get_all(
+) RETURNS JSONB LANGUAGE plpgsql AS
+$$
+DECLARE
+    __offset BIGINT := 0;
+    __count_paginated BIGINT := 0;
+    __json_result JSON;
+BEGIN
+
+    SELECT json_agg(json) AS data FROM(
+        SELECT json_build_object(
+            'id', au.id,
+            'name', au.name
+        ) AS json
+        FROM auth.roles au
+        GROUP BY au.id
+        ORDER BY au.name
+    ) json INTO __json_result;
+
+    -- Construir el json final
+    RETURN app.get_response('Ok', __json_result::jsonb);
+
+END;
+$$;
+
+SELECT auth.roles_get_all()
+
+
+
+DROP FUNCTION app.user_get_by_id;
+CREATE OR REPLACE FUNCTION app.user_get_by_id(
+    _id BIGINT
+) RETURNS JSONB LANGUAGE plpgsql AS
+$$
+DECLARE
+    __json_result JSON;
+BEGIN
+
+    SELECT json AS data FROM(
+        SELECT json_build_object(
+            'id', au.id,
+            'name', au.name,
+            'last_name', au.last_name,
+            'email', au.email,
+            'token', au.token,
+            'created_at', au.created_at,
+            'roles', (
+                SELECT json_agg(json_build_object(
+                    'id', ar.id,
+                    'name', ar.name
+                ))
+                FROM auth.roles ar
+                INNER JOIN auth.role_has_user arhu ON ar.id = arhu.role_id
+                WHERE arhu.user_id = au.id
+            ),
+            'department', (
+                SELECT json_build_object(
+                    'id', cd.id,
+                    'area_id', cd.area_id,
+                    'name', cd.name,
+                    'created_at', cd.created_at,
+                    'area', (
+                        SELECT json_build_object(
+                            'id', ca.id,
+                            'name', ca.name,
+                            'created_at', ca.created_at
+                        )
+                        FROM catalog.area ca
+                        WHERE ca.id = cd.area_id
+                    )
+                )
+                FROM app.user_has_department auhp
+                INNER JOIN catalog.department cd ON auhp.department_id = cd.id
+                WHERE auhp.user_id = au.id
+            ),
+            'detail', (
+                SELECT json_build_object(
+                    'id', auhd.id,
+                    'user_id', auhd.user_id,
+                    'curp', auhd.curp,
+                    'date_of_birth', auhd.date_of_birth,
+                    'place_of_birth', auhd.place_of_birth,
+                    'gender', auhd.gender,
+                    'birth_certificate', auhd.birth_certificate,
+                    'created_at', auhd.created_at
+                )
+                FROM app.user_has_detail auhd
+                WHERE auhd.user_id = au.id
+            )
+       ) AS json
+        FROM auth.user au
+        WHERE au.id = _id
+        GROUP BY au.id
+    ) json INTO __json_result;
+
+    -- Construir el json final
+    RETURN app.get_response('Ok', __json_result::jsonb);
+
+END;
+$$;
+
+SELECT app.user_get_by_id(1)

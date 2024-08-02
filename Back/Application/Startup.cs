@@ -23,7 +23,7 @@ public class Startup {
     
     public void ConfigureLogger(WebApplicationBuilder builder) {
         Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Debug() 
+            //.MinimumLevel.Debug() 
             .WriteTo.Console()    
             .WriteTo.File("Logs/netcore.log", rollingInterval: RollingInterval.Day)
             .CreateLogger();

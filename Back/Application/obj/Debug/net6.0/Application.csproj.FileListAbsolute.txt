@@ -69,3 +69,4 @@ C:\Users\arteaprogramar\Documents\CustomSoft\Back\Application\bin\Debug\net6.0\S
 C:\Users\arteaprogramar\Documents\CustomSoft\Back\Application\bin\Debug\net6.0\Serilog.Sinks.Console.dll
 C:\Users\arteaprogramar\Documents\CustomSoft\Back\Application\bin\Debug\net6.0\Serilog.Sinks.Debug.dll
 C:\Users\arteaprogramar\Documents\CustomSoft\Back\Application\bin\Debug\net6.0\Serilog.Sinks.File.dll
+C:\Users\arteaprogramar\Documents\CustomSoft\Back\Application\bin\Debug\net6.0\MimeTypesMap.dll

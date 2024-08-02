@@ -7,5 +7,7 @@ namespace Domain.Command.App;
 public class CreateUserCommand : IRequest<BaseResponse> {
 
     public CreateUserRequest UserRequest { get; set; } = null!;
+    
+    public HttpContextInformation? http { get; set; }
 
 }

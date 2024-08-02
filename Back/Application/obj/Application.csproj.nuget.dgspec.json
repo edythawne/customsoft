@@ -120,6 +120,10 @@
               "target": "Package",
               "version": "[6.0.7, )"
             },
+            "MimeTypesMap": {
+              "target": "Package",
+              "version": "[1.0.8, )"
+            },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[8.0.1, )"

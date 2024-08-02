@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.Response;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,14 @@ public class BaseController : ControllerBase {
 
     protected async Task<IActionResult> GetResponse(object? response) {
         return Ok(response);
+    }
+    
+    protected async Task<IActionResult> GetResponseStorage(BaseResponse response) {
+        if (response.Data is FileResponse binary) {
+            return binary.Path != null ? File(await binary.Stream, binary.MimeType, Path.GetFileName(binary.Path)) : File(await binary.Stream, binary.MimeType);
+        }
+
+        return await GetResponse(response);
     }
 
     protected HttpContextInformation? GetHttpContext() {

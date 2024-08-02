@@ -1,18 +1,3 @@
-<script setup lang="ts">
-
-import { type Ref, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-
-const _route = useRoute()
-const _router = useRouter()
-const _drawer: Ref<boolean | undefined> = ref<boolean | undefined>()
-
-const navigation = (name: string) => {
-    _router.push({ name: name })
-}
-
-</script>
-
 <template>
 
     <v-layout class="rounded rounded-md background">
@@ -20,9 +5,8 @@ const navigation = (name: string) => {
         <v-navigation-drawer v-model="_drawer" temporary class="elevation-2">
 
             <v-list density="compact" nav>
-                <v-list-item prepend-icon="mdi-home" title="Home" @click="navigation('Home')" />
-                <v-list-item prepend-icon="mdi-scale-balance" title="Descargo de Responsabilidad"
-                             @click="navigation('Descargo de Responsabilidad')" />
+                <v-list-item prepend-icon="mdi-home" title="Home" @click="onNavigation(enumRoute.ADMIN_HOME)" />
+                <v-list-item prepend-icon="mdi-logout" title="Cerrar Sesion" @click="onLogout()" />
             </v-list>
 
         </v-navigation-drawer>
@@ -41,7 +25,33 @@ const navigation = (name: string) => {
             </div>
         </v-main>
     </v-layout>
+
+
 </template>
+
+<script setup lang="ts">
+
+import { type Ref, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import enumRoute from '@/ui/router/enumRoute'
+import { useAuthStore } from '@/ui/composables/localstorage/useAuthStore'
+
+const _route = useRoute()
+const _router = useRouter()
+const _drawer: Ref<boolean | undefined> = ref<boolean | undefined>()
+
+const onNavigation = (name: string) => {
+    _router.push({ name: name })
+}
+
+const onLogout = () => {
+    const store = useAuthStore()
+    store.clearLocalStorage()
+    window.location.reload()
+}
+
+</script>
+
 <style>
 
 </style>

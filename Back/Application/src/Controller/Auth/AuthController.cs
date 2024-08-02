@@ -15,7 +15,7 @@ public class AuthController: BaseController {
     
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request) {
-        return await Execute(new LoginCommand() { LoginRequest = request});
+        return await Execute(new LoginQuery { LoginRequest = request});
     }
     
 }

@@ -1,4 +1,5 @@
-﻿using Infrastructure.Entity.Catalog;
+﻿using Infrastructure.Entity.App;
+using Infrastructure.Entity.Catalog;
 using Newtonsoft.Json;
 
 namespace Infrastructure.Entity.Auth;
@@ -25,5 +26,8 @@ public class UserEntity : BaseEntity {
 
     [JsonProperty("department")]
     public DepartmentEntity Department { get; set; }
+    
+    [JsonProperty("detail")]
+    public UserDetailEntity? Detail { get; set; }
     
 }

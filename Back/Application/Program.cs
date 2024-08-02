@@ -1,4 +1,5 @@
 using Application;
+using Application.Middleware;
 
 var startup = new Startup();
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.InitToken(builder.Configuration);
 startup.ConfigureLogger(builder);
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionMiddleware>();
 startup.ConfigureMiddleware(app, builder.Environment);
 
 app.Run();
